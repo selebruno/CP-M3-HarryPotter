@@ -1,0 +1,25 @@
+{
+  "name": "cp-m3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/**.js",
+    "grade": "mocha --reporter spec --timeout 300 test/*.js",
+    "start": "nodemon app.js"
+  },
+  "author": "Henry",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.7"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "mocha": "^8.2.0",
+    "supertest": "^5.0.0",
+    "supertest-as-promised": "^4.0.2"
+  }
+}
