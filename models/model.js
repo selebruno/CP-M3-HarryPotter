@@ -5,6 +5,8 @@ var characters = []; // arreglo de personajes de cada familia {'Homero', 36, "Si
 var families = []; //arreglo de familias ['Simpsons'[{'Homero', 36, "Simpsons"},{'Bart', 10, "Simpsons"}], 'Gorgory'[{'Rafa', 10, "Gorgory"}]]
 
 
+//hola fede
+
 module.exports = {
   reset: function () {
     // No es necesario modificar esta función (Ya está completa)
