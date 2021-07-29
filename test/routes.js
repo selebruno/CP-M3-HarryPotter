@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-expressions */
 
-var supertest = require('supertest-as-promised')(require('../app'));
+/* var supertest = require('supertest-as-promised')(require('../app'));
 var expect = require('chai').expect;
 var model = require('../models/model');
 
@@ -197,3 +197,4 @@ describe('Routes', function() {
   });
 
  });
+ */
