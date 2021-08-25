@@ -207,8 +207,8 @@ describe('Model', function() {
       Model.addHouse("Gryffindor");
       Model.addCharacter("Harry", "Potter", "Gryffindor","31-07-1980",false);
       expect(Model.listCharacter()).to.have.length(1);
-     /*  Model.addCharacter('Bart', 10, "Simpsons");
-      expect(Model.listCharacter()).to.have.length(2); */
+      Model.addCharacter("Ginny", "Weasley", "Gryffindor","11-08-1981",false);
+      expect(Model.listCharacter()).to.have.length(2); 
     });
 
     //------------------FALTAN

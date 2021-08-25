@@ -16,17 +16,17 @@
               },
             "spells":  [{
                 "id": 1,
-                "hechizo": "Accio",
+                "spellName": "Accio",
                 "uso": "Encanto de invocación"
               },
               {
                 "id": 2,
-                "hechizo": "Glisseo",
+                "spellName": "Glisseo",
                 "uso": "Convierte una escalera en un tobogán"
               },
               {
                 "id": 3,
-                "hechizo": "Impervius",
+                "spellName": "Impervius",
                 "uso": "Protege al lanzador de una variedad de sustancias, incluidos el agua y el fuego."
               }
             ]
