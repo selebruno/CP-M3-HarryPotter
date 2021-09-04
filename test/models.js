@@ -185,7 +185,7 @@ describe('Model', function() {
       expect(Model.showWand('Harry').length).to.eql(11);
     });
 
-    it('Devuelve el string: "Ya existe una varita para este personaje" si el personaje ya tien varita', function() {
+    it('Devuelve el string: "Ya existe una varita para este personaje" si el personaje ya tiene varita', function() {
       Model.addHouse("Gryffindor");
       Model.addCharacter("Harry", "Potter", "Gryffindor","31-07-1980",false);
       Model.addWand('Harry', "holly", "phoenix feather", 11);
