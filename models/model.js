@@ -159,12 +159,13 @@ module.exports = {
     return houses;
   },
 
-  addCharacter: function (name, lastname, house, dateOfBirth, isMuggle) {
+  addCharacter: function (name, lastName, house, dateOfBirth, isMuggle) {
     // Agrega un nuevo personaje, inicialmente su propiedad wand (varitas) debe ser un objeto vacío
-    // Adicionalmente va a ser necesario guardar el número (id) de la casa y no su nombre (que es lo que recibimos por parametros)
+    // Adicionalmente va a ser necesario guardar, en su propiedad houseId, el número (id) de la casa y no su nombre (que es lo que recibimos por parametros)
     // El número de casa debe empezar desde 1 y no desde 0.
     // su propiedad spells (hechizos) será inicialmente un arreglo vacío
     // su propiedad yearOfBirth debe ser un número (pista: podemos sacarla de dateOfBirth)
+    // si el nombre de la casa no esta en el arreglo de casas, no debe agregarse el personaje al arreglo de personajes.
     // Debe retornar el personaje creado
     let wand = {}
     let houseId = houses.indexOf(house) + 1
@@ -173,7 +174,7 @@ module.exports = {
     let newCharacter = {
       name,
       houseId,
-      lastname,
+      lastName,
       dateOfBirth,
       yearOfBirth,
       isMuggle,
@@ -187,6 +188,14 @@ module.exports = {
   },
 
   addSpell: function (name, id, spellName, description) {
+    // recibe el nombre de un personaje, id del hechizo, nombre del hechizo y descripción del hechizo
+    // debe encontrar en el arreglo de personajes al personaje que matchee con el nombre
+    // recibido por parametro y debe agregar a su propiedad spells un nuevo objeto hechizo de la forma: 
+    //{id: id, spellName: spellName, description: description}
+    // Si no se le pasa id, spellName o description no agrega el hechizo al personaje
+
+    if(!id || !spellName || !description) return
+
     let filterCharacter = characters.filter(character => character.name === name);
     if (!description) description = false
     filterCharacter[0].spells.push({
@@ -198,6 +207,8 @@ module.exports = {
 
   showSpells: function (name) {
     // Devuelve todos los hechizos de un personaje en particular
+    // Si no encuentra al personaje que matchee con el nombre recibido por parámetros
+    // devuelve un arreglo vacío
     let filterCharacter2 = characters.filter(character => character.name === name);
     if (filterCharacter2.length > 0) {
       return filterCharacter2[0].spells;
@@ -206,18 +217,36 @@ module.exports = {
   },
 
   addWand: function (name, wood, core, length) {
+    // Recibe : nombre de personaje (name), material de la varita (wood), núcleo de la varita (core) y largo de la varita (length)
+    // Debe encontrar el personaje que matchee con el nombre recibido
+    // Si no encuentra ningun personaje que matchee debe devolver un arreglo vacío
+    // Si lo encuentra pero ese personaje YA TIENE asignada una varita en su propiedad "wand" debe devolver el siguiente string:
+    // "Ya existe una varita para este personaje"
+    // caso contrario debe agregar a la propiedad wand del personaje un objeto de la siguiente forma
+    // {wood: wood, core: core, length: length}
     let filterCharacter = characters.filter(character => character.name === name);
-    if (!filterCharacter[0].wand) {
-      filterCharacter[0].wand({
+    if (filterCharacter.length === 0) return filterCharacter
+    if (!filterCharacter[0].wand.wood) {
+      filterCharacter[0].wand= {
         wood,
         core,
         length
-      });
+      };
     } else {
-      return "Ya existe una varita para este personaje papa frita"
+      return "Ya existe una varita para este personaje"
     }
-  }
-
+  },
+  
+  showWand: function (name) {
+    // Devuelve la varita de un personaje en particular
+    // Si no encuentra al personaje que matchee con el nombre recibido por parámetros devuelve un arreglo vacío
+    // Si el personaje en cuestión no tiene varita devuelve el string "el personaje no tiene varita"
+    let filterCharacter2 = characters.filter(character => character.name === name);
+    if (filterCharacter2.length > 0) {
+    return filterCharacter2[0].wand.wood ? filterCharacter2[0].wand : "el personaje no tiene varita";
+    }
+    return filterCharacter2;
+  },
 
 
 };
