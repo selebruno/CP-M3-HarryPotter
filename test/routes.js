@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-expressions */
 
-/* var supertest = require('supertest-as-promised')(require('../app'));
+var supertest = require('supertest-as-promised')(require('../app'));
 var expect = require('chai').expect;
 var model = require('../models/model');
 
@@ -11,10 +11,10 @@ describe('Routes', function() {
     model.reset();
   });
 
-  describe('/families', function() {
+  describe('/houses', function() {
     it('GET responde con un array vacío de entrada', function() {
       return supertest // supertest nos permite hacer y testear requests HTTP
-        .get('/families') // hacemos un request HTTP: GET a '/families'
+        .get('/houses') // hacemos un request HTTP: GET a '/houses'
         .expect(200) // el codigo de status del response
         .expect('Content-Type', /json/) // podemos testear los headers
         .expect(function(res) {
@@ -23,30 +23,34 @@ describe('Routes', function() {
     });
 
     it('GET responde con un array con los nombres de todas las familias agregadas', function() {
-      model.addFamily('Simpsons');
-      model.addFamily('Gorgory');
+      model.addHouse("Gryffindor");
+      model.addHouse("Slytherin");
       return supertest
-        .get('/families')
+        .get('/houses')
         .expect(200)
         .expect('Content-Type', /json/)
         .expect(function(res) {
-          expect(res.body).to.eql(["Simpsons", "Gorgory"]);
+          expect(res.body).to.eql(["Gryffindor", "Slytherin"]);
         });
     });
 
-    it('POST agregar una nueva familia y devuelve el nombre de la familia agregada', function() {
+    it('POST agregar una nueva casa y devuelve el nombre de la casa agregada', function() {
       return supertest
-        .post('/families')
-        .send({family: 'Simpsons'})
+        .post('/houses')
+        .send({ house: "Gryffindor" })
         .expect(200)
         .expect('Content-Type', /json/)
         .expect(function(res) {
-          expect(res.body).to.eql("Simpsons");
-          expect(model.listFamilies()).to.have.length(1);
-          expect(model.listFamilies()[0]).to.eql("Simpsons");
+          expect(res.body).to.eql("Gryffindor");
+          expect(model.listHouses()).to.have.length(1);
+          expect(model.listHouses()[0]).to.eql("Gryffindor");
         });
     });
   });
+
+})
+
+/* 
 
   describe('/characters', function() {
     it('GET responde con un array vacío de entrada', function() {
