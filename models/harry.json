@@ -1,0 +1,36 @@
+{
+    "houses": ["Gryffindor","Slytherin","Hufflepuff","Ravenclaw"],
+    
+    "characters": [
+        {
+            "name":"Harry",
+            "houseId": 1,
+            "lastname":"Potter",
+            "dateOfBirth": "31-07-1980",
+            "yearOfBirth": 1980,
+            "isMuggle": false,
+            "wand": {
+                "wood": "holly",
+                "core": "phoenix feather",
+                "length": 11
+              },
+            "spells":  [{
+                "id": 1,
+                "spellName": "Accio",
+                "uso": "Encanto de invocación"
+              },
+              {
+                "id": 2,
+                "spellName": "Glisseo",
+                "uso": "Convierte una escalera en un tobogán"
+              },
+              {
+                "id": 3,
+                "spellName": "Impervius",
+                "uso": "Protege al lanzador de una variedad de sustancias, incluidos el agua y el fuego."
+              }
+            ]
+           
+        }
+    ]
+}
