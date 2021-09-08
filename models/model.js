@@ -125,14 +125,14 @@ module.exports = {
     // Si recibe un nombre de house como parámetro debería filtrar solo los personajes de ella
     // Si recibe un segundo parámetro en true debe devolver únicamente los nombres y apellidos de los personajes
     let names = [];
-    if (house && fullName) { //SI RECIBE UN SEGUNDO PARAMETRO FILTRO EL ARRAY DE CHARACTERS Y DEVUELVO NAMES CON LOS NOMBRES DE LOS PERSONAJES
+    if (house && fullName) { 
       characters.filter(character => {
-        if (character.houseId === houses.indexOf(house) + 1) { //Aca paso el id porque el character no tiene una prop family
+        if (character.houseId === houses.indexOf(house) + 1) { 
           names.push(character.name + " " + character.lastName)
         }
       })
       return names;
-    } else if (house) { //sino le mando los personajes de family que matcheen
+    } else if (house) { 
       characters.filter(character => {
         if (character.houseId === houses.indexOf(house) + 1) {
           names.push(character)
@@ -161,12 +161,15 @@ module.exports = {
 
   addCharacter: function (name, lastName, house, dateOfBirth, isMuggle) {
     // Agrega un nuevo personaje, inicialmente su propiedad wand (varitas) debe ser un objeto vacío
-    // Adicionalmente va a ser necesario guardar, en su propiedad houseId, el número (id) de la casa y no su nombre (que es lo que recibimos por parametros)
+    // Adicionalmente va a ser necesario guardar, en su propiedad houseId, el número (id) de la casa y no su nombre 
+    // (que es lo que recibimos por parametros)
     // El número de casa debe empezar desde 1 y no desde 0.
     // su propiedad spells (hechizos) será inicialmente un arreglo vacío
     // su propiedad yearOfBirth debe ser un número (pista: podemos sacarla de dateOfBirth)
-    // si el nombre de la casa no esta en el arreglo de casas, no debe agregarse el personaje al arreglo de personajes.
-    // Debe retornar el personaje creado
+    // si el nombre de la casa no esta en el arreglo de casas: 
+    // no debe agregarse el personaje al arreglo de personajes y debe devolver un objeto con un mensaje de error,
+    // (mirar en los tests)
+    // Si la casa existe y el personaje es agregado con éxito debe retornar el personaje creado
     let wand = {}
     let houseId = houses.indexOf(house) + 1
     let spells = [];
@@ -184,6 +187,8 @@ module.exports = {
     if (houses.includes(house)) {
       characters.push(newCharacter)
       return newCharacter;
+    }else{
+      return {msg: 'La casa ingresada no existe'}
     }
   },
 
@@ -192,6 +197,7 @@ module.exports = {
     // debe encontrar en el arreglo de personajes al personaje que matchee con el nombre
     // recibido por parametro y debe agregar a su propiedad spells un nuevo objeto hechizo de la forma: 
     //{id: id, spellName: spellName, description: description}
+    // una vez agregado el hechizo debe retornar un objeto con un mensaje de éxito (ver el test de las rutas)
     // Si no se le pasa id, spellName o description no agrega el hechizo al personaje
 
     if(!id || !spellName || !description) return
@@ -203,6 +209,7 @@ module.exports = {
       spellName,
       description
     });
+    return {msg: "Hechizo agregado correctamente"};
   },
 
   showSpells: function (name) {
@@ -232,6 +239,7 @@ module.exports = {
         core,
         length
       };
+      return "varita agregada correctamente"
     } else {
       return "Ya existe una varita para este personaje"
     }
