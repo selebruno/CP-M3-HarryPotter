@@ -40,66 +40,66 @@ describe('Model', function() {
 
   });
 
-  describe('`addCharacter` y `listCharacter`', function() {
+  describe('`addCharacter` y `listCharacters`', function() {
     it('Inicialmente devuelve un arreglo vacío', function() {
-      expect(Model.listCharacter()).to.eql([]);
+      expect(Model.listCharacters()).to.eql([]);
     });
 
     it('Agrega personajes al arreglo', function() {
       Model.addHouse("Gryffindor");
       Model.addCharacter("Harry", "Potter", "Gryffindor","31-07-1980",false);
-      expect(Model.listCharacter()).to.have.length(1);
+      expect(Model.listCharacters()).to.have.length(1);
       Model.addCharacter("Ginny", "Weasley", "Gryffindor","11-08-1981",false);
-      expect(Model.listCharacter()).to.have.length(2); 
+      expect(Model.listCharacters()).to.have.length(2); 
     });
 
     it('Inicialmente las varitas de los personajes deben ser objetos vacios', function() {
       Model.addHouse("Gryffindor");
       Model.addCharacter("Harry", "Potter", "Gryffindor","31-07-1980",false);
-      expect(Model.listCharacter()).to.have.length(1);
-      expect(Model.listCharacter()[0].wand).to.eql({});
+      expect(Model.listCharacters()).to.have.length(1);
+      expect(Model.listCharacters()[0].wand).to.eql({});
       Model.addHouse("Slytherin");
       Model.addCharacter("Draco", "Malfoy", "Slytherin","26-07-1990",false);
-      expect(Model.listCharacter()).to.have.length(2);
-      expect(Model.listCharacter()[1].wand).to.eql({});
+      expect(Model.listCharacters()).to.have.length(2);
+      expect(Model.listCharacters()[1].wand).to.eql({});
     });
 
     it('Debe guardar el número (id) de la casa y no su nombre', function() {
       Model.addHouse("Gryffindor");
       Model.addCharacter("Harry", "Potter", "Gryffindor","31-07-1980",false);
-      expect(Model.listCharacter()).to.have.length(1);
-      expect(Model.listCharacter()[0].houseId).to.eql(1);
+      expect(Model.listCharacters()).to.have.length(1);
+      expect(Model.listCharacters()[0].houseId).to.eql(1);
       Model.addHouse("Slytherin");
       Model.addCharacter("Fede", "Panella", "Slytherin","26-07-1990",false);
-      expect(Model.listCharacter()).to.have.length(2);
-      expect(Model.listCharacter()[1].houseId).to.eql(2);
+      expect(Model.listCharacters()).to.have.length(2);
+      expect(Model.listCharacters()[1].houseId).to.eql(2);
     });
 
     it('su propiedad spells (hechizos) será inicialmente un arreglo vacío', function() {
       Model.addHouse("Gryffindor");
       Model.addCharacter("Harry", "Potter", "Gryffindor","31-07-1980",false);
-      expect(Model.listCharacter()).to.have.length(1);
-      expect(Model.listCharacter()[0].spells).to.eql([]);
+      expect(Model.listCharacters()).to.have.length(1);
+      expect(Model.listCharacters()[0].spells).to.eql([]);
       Model.addHouse("Slytherin");
       Model.addCharacter("Draco", "Malfoy", "Slytherin","26-07-1990",false);
-      expect(Model.listCharacter()).to.have.length(2);
-      expect(Model.listCharacter()[1].spells).to.eql([]);
+      expect(Model.listCharacters()).to.have.length(2);
+      expect(Model.listCharacters()[1].spells).to.eql([]);
     });
     it('su propiedad yearOfBirth debe ser un número', function() {
       Model.addHouse("Gryffindor");
       Model.addCharacter("Harry", "Potter", "Gryffindor","31-07-1980",false);
-      expect(Model.listCharacter()).to.have.length(1);
-      expect(Model.listCharacter()[0].yearOfBirth).to.eql(1980);
+      expect(Model.listCharacters()).to.have.length(1);
+      expect(Model.listCharacters()[0].yearOfBirth).to.eql(1980);
       Model.addHouse("Slytherin");
       Model.addCharacter("Draco", "Malfoy", "Slytherin","26-07-1990",false);
-      expect(Model.listCharacter()).to.have.length(2);
-      expect(Model.listCharacter()[1].yearOfBirth).to.eql(1990);
+      expect(Model.listCharacters()).to.have.length(2);
+      expect(Model.listCharacters()[1].yearOfBirth).to.eql(1990);
     });
 
-    it('Si no se provee un nombre de casa valido no se agrega al arreglo', function() {
+    it('Si no se provee un nombre de casa válido no se agrega al arreglo', function() {
       Model.addHouse("Gryffindor");
       Model.addCharacter("Draco", "Malfoy", "Slytherin","26-07-1990",false);
-      expect(Model.listCharacter()).to.have.length(0);
+      expect(Model.listCharacters()).to.have.length(0);
     });
 
     it('Si recibe un nombre de casa como parámetro debería filtrar solo los personajes de ella', function() {
@@ -108,11 +108,11 @@ describe('Model', function() {
       Model.addCharacter("Harry", "Potter", "Gryffindor","31-07-1980",false);
       Model.addCharacter("Hermione", "Granger", "Gryffindor","06-12-1987",false);
       Model.addCharacter("Draco", "Malfoy", "Slytherin","26-07-1990",false);
-      expect(Model.listCharacter('Gryffindor')).to.have.length(2);
-      expect(Model.listCharacter('Gryffindor')[0].name).to.eql("Harry");
-      expect(Model.listCharacter('Gryffindor')[1].name).to.eql("Hermione");
-      expect(Model.listCharacter('Slytherin')).to.have.length(1);
-      expect(Model.listCharacter('Slytherin')[0].name).to.eql("Draco");
+      expect(Model.listCharacters('Gryffindor')).to.have.length(2);
+      expect(Model.listCharacters('Gryffindor')[0].name).to.eql("Harry");
+      expect(Model.listCharacters('Gryffindor')[1].name).to.eql("Hermione");
+      expect(Model.listCharacters('Slytherin')).to.have.length(1);
+      expect(Model.listCharacters('Slytherin')[0].name).to.eql("Draco");
     });
 
     it('Si recibe un segundo parámetro en true debe devolver únicamente los nombres y apellidos de los personajes', function() {
@@ -121,11 +121,11 @@ describe('Model', function() {
       Model.addCharacter("Harry", "Potter", "Gryffindor","31-07-1980",false);
       Model.addCharacter("Hermione", "Granger", "Gryffindor","06-12-1987",false);
       Model.addCharacter("Draco", "Malfoy", "Slytherin","26-07-1990",false);
-      expect(Model.listCharacter('Gryffindor', true)).to.have.length(2);
-      expect(Model.listCharacter('Gryffindor', true)[0]).to.eql("Harry Potter");
-      expect(Model.listCharacter('Gryffindor', true)[1]).to.eql("Hermione Granger");
-      expect(Model.listCharacter('Slytherin', true)).to.have.length(1);
-      expect(Model.listCharacter('Slytherin', true)[0]).to.eql("Draco Malfoy");
+      expect(Model.listCharacters('Gryffindor', true)).to.have.length(2);
+      expect(Model.listCharacters('Gryffindor', true)[0]).to.eql("Harry Potter");
+      expect(Model.listCharacters('Gryffindor', true)[1]).to.eql("Hermione Granger");
+      expect(Model.listCharacters('Slytherin', true)).to.have.length(1);
+      expect(Model.listCharacters('Slytherin', true)[0]).to.eql("Draco Malfoy");
     });
   });
 

@@ -22,7 +22,7 @@ describe('Routes', function() {
         });
     });
 
-    it('GET responde con un array con los nombres de todas las familias agregadas', function() {
+    it('GET responde con un array con los nombres de todas las casas agregadas', function() {
       model.addHouse("Gryffindor");
       model.addHouse("Slytherin");
       return supertest
@@ -34,7 +34,7 @@ describe('Routes', function() {
         });
     });
 
-    it('POST agregar una nueva casa y devuelve el nombre de la casa agregada', function() {
+    it('POST agrega una nueva casa y devuelve el nombre de la casa agregada', function() {
       return supertest
         .post('/houses')
         .send({ house: "Gryffindor" })
@@ -89,8 +89,8 @@ describe('/characters', function() {
       .expect('Content-Type', /json/)
       .expect(function(res) {
         expect(res.body).to.eql({name: 'Harry', houseId: 1, lastName: 'Potter', dateOfBirth: '31-07-1980', yearOfBirth: 1980, isMuggle: false, wand: {}, spells: []});
-        expect(model.listCharacter()).to.have.length(1);
-        expect(model.listCharacter()[0].name).to.eql('Harry');
+        expect(model.listCharacters()).to.have.length(1);
+        expect(model.listCharacters()[0].name).to.eql('Harry');
       });
   });
 
@@ -99,17 +99,17 @@ describe('/characters', function() {
     return supertest
       .post('/characters')
       .send({name: 'Harry', lastName: 'Potter', house: 'Gryffindor', dateOfBirth: '31-07-1980', isMuggle: false})
-      .expect(400)
+      .expect(404)
       .expect('Content-Type', /json/)
       .expect(function(res) {
         expect(res.body).to.deep.eql({msg: 'La casa ingresada no existe'});
-        expect(model.listCharacter()).to.have.length(0);
+        expect(model.listCharacters()).to.have.length(0);
       });
   });
 });
 
 
-describe('/characters/:name', function() {
+describe('/characters/:houseName', function() {
   it('GET responde con un array vacío si la casa no existe', function() {
     model.reset();
     model.addHouse("Gryffindor");
@@ -169,14 +169,14 @@ describe('/spells', function() {
         });
     });
 
-    it('GET responde con todos los hechizos del personaje indicado pasado por body', function() {
+    it('GET responde con todos los hechizos del personaje indicado pasado por query', function() {
       model.reset();
       model.addHouse("Gryffindor");
       model.addCharacter("Harry", "Potter", "Gryffindor","31-07-1980",false);
       model.addSpell('Harry', 1, "Kadabra", "es mágico");
       model.addSpell('Harry', 2, "otro", "magic");
       return supertest
-        .get('/spells')
+        .get('/spells?name=Harry')
         .send({name: 'Harry'})
         .expect(200)
         .expect('Content-Type', /json/)
@@ -193,7 +193,7 @@ describe('/spells', function() {
       return supertest
         .post('/spells')
         .send({name: "Harry", id: 1, spellName: "lamagia", description: "henry potter"})
-        .expect(200)
+        .expect(201)
         .expect('Content-Type', /json/)
         .expect(function(res) {
           expect(res.body).to.deep.eql({msg: "Hechizo agregado correctamente"});
@@ -247,7 +247,7 @@ describe('/spells', function() {
         return supertest
           .post('/wand')
           .send({name: "Fede", wood: "holly", core: "phoenix feather", length: 11})
-          .expect(200)
+          .expect(201)
           .expect('Content-Type', /json/)
           .expect(function(res) {
             expect(res.body).to.deep.eql([]);
@@ -262,7 +262,7 @@ describe('/spells', function() {
         return supertest
           .post('/wand')
           .send({name: "Harry", wood: "holly", core: "phoenix feather", length: 11})
-          .expect(200)
+          .expect(201)
           .expect('Content-Type', /json/)
           .expect(function(res) {
             expect(res.body).to.deep.eql("varita agregada correctamente");
@@ -279,7 +279,7 @@ describe('/spells', function() {
       return supertest
         .post('/wand')
         .send({name: "Harry", wood: "holly", core: "phoenix feather", length: 11})
-        .expect(200)
+        .expect(201)
         .expect('Content-Type', /json/)
         .expect(function(res) {
           expect(res.body).to.deep.eql("Ya existe una varita para este personaje");
